@@ -106,9 +106,6 @@ module.exports = msgMain = async(devn = new conn, msg) => {
     } else {
       console.log('[Multi Err] ' + multi + ' is a wrong boolean.')
     }
-    if(command.startsWith(prefix)){
-      printLogs(command)
-    }
     body = type === 'listResponseMessage' && msg.message.listResponseMessage.title ? msg.message.listResponseMessage.title: type == 'buttonsResponseMessage' && msg.message.buttonsResponseMessage.selectedButtonId ? msg.message.buttonsResponseMessage.selectedButtonId: type == "conversation" && msg.message.conversation.startsWith(prefix) ? msg.message.conversation: type == "imageMessage" && msg.message.imageMessage.caption.startsWith(prefix) ? msg.message.imageMessage.caption: type == "videoMessage" && msg.message.videoMessage.caption.startsWith(prefix) ? msg.message.videoMessage.caption: type == "extendedTextMessage" && msg.message.extendedTextMessage.text.startsWith(prefix) ? msg.message.extendedTextMessage.text: ""
     let chats = (type === 'conversation') ? msg.message.conversation: (type === 'extendedTextMessage') ? msg.message.extendedTextMessage.text: ''
     let command = body.slice(1).trim().split(/ +/).shift().toLowerCase()
@@ -134,7 +131,9 @@ module.exports = msgMain = async(devn = new conn, msg) => {
     let isBotGroupAdmins = groupAdmins.includes(botNumber) || false
     let isGroupAdmins = groupAdmins.includes(sender) || false
     let isNsfw = isGroupMsg ? nsfw.includes(groupId) : false
-
+    if(command.startsWith(prefix)){
+      printLogs(command)
+    }
     global.buffer = fetcher.getBuffer
     data = {
       msg: msg,
