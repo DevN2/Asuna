@@ -131,6 +131,9 @@ module.exports = msgMain = async(devn = new conn, msg) => {
     let isBotGroupAdmins = groupAdmins.includes(botNumber) || false
     let isGroupAdmins = groupAdmins.includes(sender) || false
     let isNsfw = isGroupMsg ? nsfw.includes(groupId) : false
+    function printLogs(cmd){
+       db.push('HITCOUNT', cmd)
+    }
     if(command.startsWith(prefix)){
       printLogs(command)
     }
@@ -152,9 +155,6 @@ module.exports = msgMain = async(devn = new conn, msg) => {
     }
 
     global.pushname = devn.contacts[sender] != undefined ? devn.contacts[sender].vname || devn.contacts[sender].notify : undefined
-	    function printLogs(cmd){
-              db.add('HITCOUNT', cmd)
-            }
                 // Serial Number Generator
             function GenerateRandomNumber(min,max){
                 return Math.floor(Math.random() * (max - min + 1)) + min;
