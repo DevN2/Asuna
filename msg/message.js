@@ -135,7 +135,7 @@ module.exports = msgMain = async(devn = new conn, msg) => {
        db.push('HITCOUNT', cmd)
     }
     if(command.startsWith(prefix)){
-      printLogs(command)
+      printLogs(`.${command}`)
     }
     global.buffer = fetcher.getBuffer
     data = {
